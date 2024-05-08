@@ -1,0 +1,39 @@
+package com.example.interim;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    ImageView appLogo;
+    TextView bienvenueTxt, bienvenue2Txt, lastTxt, connectezVousTxt;
+    Button firstBtn, secondBtn, thirdBtn;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Declaring the views
+        appLogo = findViewById(R.id.app_logo);
+        bienvenueTxt = findViewById(R.id.bienvenue_text_view);
+        bienvenue2Txt = findViewById(R.id.bienvenue2_text_view);
+        lastTxt = findViewById(R.id.last_text_view);
+        connectezVousTxt = findViewById(R.id.connectez_vous_txt);
+        firstBtn = findViewById(R.id.first_button);
+        secondBtn = findViewById(R.id.second_button);
+        thirdBtn = findViewById(R.id.third_button);
+
+        // Adding the functionalities
+        appLogo.setImageResource(R.drawable.logo);
+
+    }
+}
