@@ -2,6 +2,7 @@ package com.example.interim;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -22,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -72,6 +74,10 @@ public class LocationActivity extends AppCompatActivity {
         // the accept button
         acceptBtn.setOnClickListener(v -> {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main, new OffersFragment());
+            transaction.addToBackStack(null); // Optional: Add to backstack for navigation
+            transaction.commit();
         });
 
         // The refuse button
