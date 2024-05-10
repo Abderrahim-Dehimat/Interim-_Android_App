@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.Interim" parent="Base.Theme.Interim" />
+    <style name="Theme.Interim.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Interim.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Interim.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

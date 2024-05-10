@@ -38,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
         appLogo.setImageResource(R.drawable.logo);
 
         // Explorez l'application button
+        firstBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), LoginActivityUser.class);
+                startActivity(i);
+            }
+        });
         thirdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
 
     }
 }
