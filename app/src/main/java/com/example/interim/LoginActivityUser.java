@@ -1,9 +1,10 @@
 package com.example.interim;
 
-import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,55 +12,29 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
 public class LoginActivityUser extends AppCompatActivity {
-    private Calendar calendar;
-    private TextInputEditText birthdate;
+    ImageView appLogo;
+    Button logInButton, RegisterButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login_user);
-        birthdate = findViewById(R.id.dateEditText);
-        calendar = Calendar.getInstance();
-        final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, monthOfYear);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateDateEditText();
-            }
-        };
-
-        birthdate.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_lo_gin_user);
+        // declaring the views
+        appLogo = findViewById(R.id.app_logo);
+        logInButton = findViewById(R.id.buttonConnexion);
+        RegisterButton = findViewById(R.id.RegisterButton);
+        // Adding the functionalities
+        appLogo.setImageResource(R.drawable.logo);
+        // Register Button
+        RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                Calendar maxDate = (Calendar) calendar.clone();
-                maxDate.set(Calendar.YEAR, year - 18);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(LoginActivityUser.this, dateSetListener, year - 18, month, day);
-                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
-                datePickerDialog.show();
+                Intent i = new Intent(getApplicationContext(), RegistrationActivityUser.class);
+                startActivity(i);
             }
         });
-        //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-         //   Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-          //  v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-          //  return insets;
-        //});
-    }
-    private void updateDateEditText() {
-        String dateFormat = "dd/MM/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());
-        birthdate.setText(simpleDateFormat.format(calendar.getTime()));
     }
 }
