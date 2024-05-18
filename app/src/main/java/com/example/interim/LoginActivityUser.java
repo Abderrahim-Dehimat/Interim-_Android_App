@@ -8,9 +8,6 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class LoginActivityUser extends AppCompatActivity {
     ImageView appLogo;
@@ -23,9 +20,9 @@ public class LoginActivityUser extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_lo_gin_user);
         // declaring the views
-        appLogo = findViewById(R.id.app_logo);
-        logInButton = findViewById(R.id.buttonConnexion);
-        RegisterButton = findViewById(R.id.RegisterButton);
+        appLogo = findViewById(R.id.app_logo3);
+        logInButton = findViewById(R.id.buttonConnexionEmp);
+        RegisterButton = findViewById(R.id.RegisterButtonEmp);
         // Adding the functionalities
         appLogo.setImageResource(R.drawable.logo);
         // Register Button

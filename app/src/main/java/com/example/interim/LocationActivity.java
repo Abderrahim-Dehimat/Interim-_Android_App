@@ -46,6 +46,7 @@ public class LocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        EdgeToEdge.enable(this);
 
         // Declaring the views
         appLogo2 = findViewById(R.id.app_logo2);

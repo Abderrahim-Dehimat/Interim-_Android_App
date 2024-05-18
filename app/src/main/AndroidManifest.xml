@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Interim"
         tools:targetApi="31">
         <activity
+            android:name=".LoginActivityEmployeur"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrationActivityEmployee"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivityUser"
             android:exported="false" />
         <activity

@@ -21,7 +21,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     // the constructor
 
-
     public CustomAdapter(Context context, ArrayList<OfferModelClass> offers) {
         this.context = context;
         this.offers = offers;
@@ -41,7 +40,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.offerNameTxt.setText(model.getOfferName());
         holder.companyNameTxt.setText(model.getCompanyName());
         holder.offerInfosTxt.setText(model.getOfferInfos());
-
 
     }
 
