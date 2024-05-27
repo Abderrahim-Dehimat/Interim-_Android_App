@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,5 +37,30 @@ public class LoginActivityEmployeur extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        logInBtnEmployeur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emailEmployer = emailLogInEmp.getText().toString();
+                String passwordEmployer = passwordLogInEmp.getText().toString();
+                logInEmployer(emailEmployer, passwordEmployer);
+            }
+        });
+
     }
+
+    private void logInEmployer(String email, String password) {
+        AppDatabase db = DatabaseClient.getInstance(getApplicationContext()).getAppDatabase();
+        new Thread(() -> {
+            Employer employer = db.employerDAO().getEmployerByEmailAndPassword(email, password);
+            runOnUiThread(() -> {
+                if (employer != null) {
+                    Toast.makeText(getApplicationContext(), "Connexion réussie", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }).start();
+    }
+
 }

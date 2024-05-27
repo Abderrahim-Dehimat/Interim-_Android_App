@@ -41,7 +41,7 @@ public class User {
         this.idUtilisateur = 0;
     }
 
-    public int getIdUtilisateur() {
+public int getIdUtilisateur() {
         return idUtilisateur;
     }
 
