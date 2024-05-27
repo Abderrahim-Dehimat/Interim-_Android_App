@@ -23,10 +23,10 @@ public class RegistrationActivityEmployee extends AppCompatActivity {
         saveButton = findViewById(R.id.enregister_button_employeur);
         nomEmp = findViewById(R.id.nom_employeur_edit_text);
         mailEmp = findViewById(R.id.email_employeur_edit_text);
-        telEmp = findViewById(R.id.telephone_employeur_edit_text);
+        telEmp = findViewById(R.id.telephone_utilisateur_edit_text);
         villeEmp = findViewById(R.id.VilleEditText);
         lienEmp = findViewById(R.id.lien_public_employer);
-        motDePasseEmp = findViewById(R.id.motDePasseEmp);
+        motDePasseEmp = findViewById(R.id.motDePasse_utilisateur);
         confirmationMdp = findViewById(R.id.confiramtion_mot_de_passe_employeur);
 
 

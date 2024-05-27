@@ -9,9 +9,6 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class LoginActivityEmployeur extends AppCompatActivity {
 
@@ -25,8 +22,8 @@ public class LoginActivityEmployeur extends AppCompatActivity {
         setContentView(R.layout.activity_login_employeur);
 
         logo3 = findViewById(R.id.app_logo3);
-        emailLogInEmp = findViewById(R.id.emailEmployeurET);
-        passwordLogInEmp = findViewById(R.id.motDePasseEmp);
+        emailLogInEmp = findViewById(R.id.email_utilisateurET);
+        passwordLogInEmp = findViewById(R.id.motDePasse_utilisateur);
         logInBtnEmployeur = findViewById(R.id.buttonConnexionEmp);
         registerBtnEmployeur = findViewById(R.id.RegisterButtonEmp);
 

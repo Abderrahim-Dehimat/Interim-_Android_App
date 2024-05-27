@@ -58,7 +58,7 @@
         app:boxStrokeColor="@color/button_color"
         app:layout_constraintTop_toBottomOf="@id/loginText">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEmployeurET"
+            android:id="@+id/email_utilisateurET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTint="@color/button_color"
@@ -85,7 +85,7 @@
         app:passwordToggleEnabled="true"
         app:layout_constraintTop_toBottomOf="@id/layoutEmail">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/motDePasseEmp"
+            android:id="@+id/motDePasse_utilisateur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTint="@color/button_color"

@@ -56,7 +56,7 @@
             app:boxStrokeColor="@color/button_color"
             app:layout_constraintTop_toTopOf="@id/back_image_view">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nom_employeur_edit_text"
+                android:id="@+id/nom_utilisateur_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTint="@color/button_color"
@@ -82,7 +82,7 @@
             app:boxStrokeColor="@color/button_color"
             app:layout_constraintTop_toBottomOf="@id/layoutName">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_employeur_edit_text"
+                android:id="@+id/prenom_utilisateur_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTint="@color/button_color"
@@ -138,7 +138,7 @@
             app:boxStrokeColor="@color/button_color"
             app:layout_constraintTop_toBottomOf="@id/layout_telephone_emp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/VilleEditText"
+                android:id="@+id/Ville_utilisateurEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTint="@color/button_color"
@@ -164,7 +164,7 @@
             app:boxStrokeColor="@color/button_color"
             app:layout_constraintTop_toBottomOf="@id/layoutVille">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/telephone_employeur_edit_text"
+                android:id="@+id/telephone_utilisateur_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTint="@color/button_color"
@@ -190,7 +190,7 @@
             app:boxStrokeColor="@color/button_color"
             app:layout_constraintTop_toBottomOf="@id/layoutTelephone">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEmployeurET"
+                android:id="@+id/email_utilisateurET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTint="@color/button_color"
@@ -218,7 +218,7 @@
             app:passwordToggleEnabled="true"
             app:layout_constraintTop_toBottomOf="@id/layoutEmail">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/motDePasseEmp"
+                android:id="@+id/motDePasse_utilisateur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTint="@color/button_color"
@@ -245,7 +245,7 @@
             app:passwordToggleEnabled="true"
             app:layout_constraintTop_toBottomOf="@id/layoutPassword">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/confiramtion_mot_de_passe_employeur"
+                android:id="@+id/confiramtion_mot_de_passe_utilisateur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTint="@color/button_color"
@@ -255,7 +255,7 @@
                 android:drawableStart="@drawable/baseline_lock_outline_24" />
         </com.google.android.material.textfield.TextInputLayout>
         <Button
-            android:id="@+id/buttonEnvoyer"
+            android:id="@+id/register_button_utilisateur"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
