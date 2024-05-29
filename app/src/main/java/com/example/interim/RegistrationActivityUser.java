@@ -1,8 +1,12 @@
 package com.example.interim;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -10,11 +14,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Insert;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -24,8 +33,32 @@ public class RegistrationActivityUser extends AppCompatActivity {
     EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUtilisateur, emailUtilisateur, motDePasseUtilisateur;
     Button registerButton;
 
+
+    private Uri pdfUri;
+
     private Calendar calendar;
     private TextInputEditText birthdate;
+    private Uri cvUri;
+    private Uri letterUri;
+
+    private final ActivityResultLauncher<Intent> cvPickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                            handleFileSelection(result.getData(), PICK_CV_REQUEST);
+                        }
+                    });
+
+    private final ActivityResultLauncher<Intent> letterPickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                            handleFileSelection(result.getData(), PICK_LETTER_REQUEST);
+                        }
+                    });
+
+    private static final int PICK_CV_REQUEST = 1;
+    private static final int PICK_LETTER_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +77,12 @@ public class RegistrationActivityUser extends AppCompatActivity {
 
         birthdate = findViewById(R.id.dateEditText);
         calendar = Calendar.getInstance();
+
+        Button selectCvButton = findViewById(R.id.select_cv_button);
+        Button selectPdfButton = findViewById(R.id.select_pdf_button);
+
+        selectCvButton.setOnClickListener(v -> openFilePicker(PICK_CV_REQUEST));
+        selectPdfButton.setOnClickListener(v -> openFilePicker(PICK_LETTER_REQUEST));
         final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -115,5 +154,69 @@ public class RegistrationActivityUser extends AppCompatActivity {
         }
         return true;
     }
+    private void openFilePicker(int requestCode) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("application/pdf");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        if (requestCode == PICK_CV_REQUEST) {
+            cvPickerLauncher.launch(intent);
+        } else if (requestCode == PICK_LETTER_REQUEST) {
+            letterPickerLauncher.launch(intent);
+        }
+    }
+    private void handleFileSelection(Intent data, int requestCode) {
+        Uri uri = data.getData();
+        if (uri != null) {
+            String fileName = getFileName(uri);
+            File pdfFile = savePdfToLocalStorage(uri, fileName);
+            if (pdfFile != null) {
+                if (requestCode == PICK_CV_REQUEST) {
+                    cvUri = uri;
+                    Toast.makeText(this, "CV Selected: " + fileName, Toast.LENGTH_SHORT).show();
+                } else if (requestCode == PICK_LETTER_REQUEST) {
+                    letterUri = uri;
+                    Toast.makeText(this, "Letter Selected: " + fileName, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    @SuppressLint("Range")
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+    private File savePdfToLocalStorage(Uri uri, String fileName) {
+        File file = new File(getFilesDir(), fileName);
+        try (InputStream inputStream = getContentResolver().openInputStream(uri);
+             FileOutputStream outputStream = new FileOutputStream(file)) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            return file;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to save PDF", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+    }
+
 
 }
