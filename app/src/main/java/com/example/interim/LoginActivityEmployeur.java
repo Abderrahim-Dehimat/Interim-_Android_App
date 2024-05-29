@@ -28,7 +28,7 @@ public class LoginActivityEmployeur extends AppCompatActivity {
         logInBtnEmployeur = findViewById(R.id.buttonConnexionEmp);
         registerBtnEmployeur = findViewById(R.id.RegisterButtonEmp);
 
-        logo3.setImageResource(R.drawable.logo);
+        logo3.setImageResource(R.drawable.logo8);
 
         registerBtnEmployeur.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +56,8 @@ public class LoginActivityEmployeur extends AppCompatActivity {
             runOnUiThread(() -> {
                 if (employer != null) {
                     Toast.makeText(getApplicationContext(), "Connexion réussie", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), welcome_employer.class);
+                    startActivity(i);
                 } else {
                     Toast.makeText(getApplicationContext(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
                 }
