@@ -30,8 +30,8 @@ public class depo_offre extends AppCompatActivity {
         Renumeration=findViewById(R.id.Renumeration);
         description=findViewById(R.id.description);
         deposer_button_employeur=findViewById(R.id.deposer_button_employeur);
-
         Spinner spinnerTypeContrat = findViewById(R.id.spinner_type_contrat);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.types_contrat, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
