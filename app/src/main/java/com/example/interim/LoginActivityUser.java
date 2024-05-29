@@ -1,5 +1,7 @@
 package com.example.interim;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +13,10 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.concurrent.ExecutorService;
+
 public class LoginActivityUser extends AppCompatActivity {
+    private ExecutorService executorService;
     ImageView appLogo;
     EditText emailUtilisateur, motDePasseUtilisateur;
     Button logInButton, RegisterButton;
@@ -30,6 +35,8 @@ public class LoginActivityUser extends AppCompatActivity {
         RegisterButton = findViewById(R.id.RegisterButtonEmp);
         // Adding the functionalities
         appLogo.setImageResource(R.drawable.logo);
+
+
         // Register Button
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override

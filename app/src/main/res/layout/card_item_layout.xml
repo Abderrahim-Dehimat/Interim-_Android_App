@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+<!--
         <ImageView
             android:id="@+id/company_image_view"
             android:layout_width="80dp"
@@ -22,24 +22,25 @@
             android:padding="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+-->
         <TextView
             android:id="@+id/offer_name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:text="Offer Name"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/company_image_view"
-            app:layout_constraintTop_toTopOf="@+id/company_image_view" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/comapny_name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:text="company name"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -48,6 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/offer_name_txt" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/offer_infos_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,6 +74,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/offer_infos_txt"
             app:layout_constraintTop_toBottomOf="@+id/offer_infos_txt" />
+
+        <Button
+            android:id="@+id/details_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:textSize="15sp"
+            android:backgroundTint="@color/button_color"
+            android:text="Détails"
+            app:layout_constraintStart_toEndOf="@+id/apply_button"
+            app:layout_constraintTop_toTopOf="@+id/apply_button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

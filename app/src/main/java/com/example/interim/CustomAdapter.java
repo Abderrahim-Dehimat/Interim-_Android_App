@@ -36,7 +36,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         OfferModelClass model = offers.get(position);
-        holder.companyImg.setImageResource(model.getCompanyImg());
+        //holder.companyImg.setImageResource(model.getCompanyImg());
         holder.offerNameTxt.setText(model.getOfferName());
         holder.companyNameTxt.setText(model.getCompanyName());
         holder.offerInfosTxt.setText(model.getOfferInfos());
@@ -49,13 +49,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView companyImg;
+        //private ImageView companyImg;
         private TextView offerNameTxt, companyNameTxt, offerInfosTxt;
         private Button applyBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            companyImg = itemView.findViewById(R.id.company_image_view);
+            //companyImg = itemView.findViewById(R.id.company_image_view);
             offerNameTxt = itemView.findViewById(R.id.offer_name_txt);
             companyNameTxt = itemView.findViewById(R.id.comapny_name_txt);
             offerInfosTxt = itemView.findViewById(R.id.offer_infos_txt);

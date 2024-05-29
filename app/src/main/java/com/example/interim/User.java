@@ -25,12 +25,16 @@ public class User {
     public String emailUtilisateur;
     @ColumnInfo(name = "mot_de_passe_utilisateur")
     public String motDePasse;
+    @ColumnInfo(name = "cv_utilisateur")
+    public String cvUtilisateur;
+    @ColumnInfo(name = "lettre_motivation_utilisateur")
+    public String letteMotivation;
 
     @Ignore
     public User() {
     }
 
-    public User(String nom, String prenom, String dateDeNaissance, String ville, String numeroTelephone, String emailUtilisateur, String motDePasse) {
+    public User(String nom, String prenom, String dateDeNaissance, String ville, String numeroTelephone, String emailUtilisateur, String motDePasse, String cvUtilisateur, String letteMotivation) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
@@ -39,9 +43,11 @@ public class User {
         this.emailUtilisateur = emailUtilisateur;
         this.motDePasse = motDePasse;
         this.idUtilisateur = 0;
+        this.cvUtilisateur = cvUtilisateur;
+        this.letteMotivation = letteMotivation;
     }
 
-public int getIdUtilisateur() {
+    public int getIdUtilisateur() {
         return idUtilisateur;
     }
 
@@ -99,5 +105,25 @@ public int getIdUtilisateur() {
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
+    }
+
+    public void setIdUtilisateur(int idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
+    public String getCvUtilisateur() {
+        return cvUtilisateur;
+    }
+
+    public void setCvUtilisateur(String cvUtilisateur) {
+        this.cvUtilisateur = cvUtilisateur;
+    }
+
+    public String getLetteMotivation() {
+        return letteMotivation;
+    }
+
+    public void setLetteMotivation(String letteMotivation) {
+        this.letteMotivation = letteMotivation;
     }
 }

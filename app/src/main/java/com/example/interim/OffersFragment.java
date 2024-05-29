@@ -1,29 +1,27 @@
 package com.example.interim;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import java.util.ArrayList;
-
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class OffersFragment extends Fragment {
 
-
-    RecyclerView recyclerView;
-    ArrayList<OfferModelClass> offersList;
-    CustomAdapter adapter;
+    private ExecutorService executorService;
+    private RecyclerView recyclerView;
+    private List<JobOffer> jobOffers;
+    private JobOfferAdapter adapter;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -31,7 +29,6 @@ public class OffersFragment extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static OffersFragment newInstance(String param1, String param2) {
         OffersFragment fragment = new OffersFragment();
         Bundle args = new Bundle();
@@ -48,33 +45,34 @@ public class OffersFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Initialize the ExecutorService
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        View view =  inflater.inflate(R.layout.fragment_offers, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_offers, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
-        // Data Source
-        offersList = new ArrayList<>();
-        offersList.add(new OfferModelClass(R.drawable.logo, "Preparateur de commandes", "DH interim", "Temps plein / 3 mois/ Montpellier "));
-        offersList.add(new OfferModelClass(R.drawable.logo, "Inventoriste", "AB interim", "Temps partiel / 4 mois/ Toulouse "));
-        offersList.add(new OfferModelClass(R.drawable.logo, "Conseiller de vente", "Darty", "Temps plein / 6 mois/ Paris "));
-        offersList.add(new OfferModelClass(R.drawable.logo, "Vendeur", "Gifi", "Temps plein / 6 mois/ Nice "));
-        offersList.add(new OfferModelClass(R.drawable.logo, "Agent de caisse", "Lidl", "Temps plein / 6 mois/ Nice "));
-        offersList.add(new OfferModelClass(R.drawable.logo, "Employee polyvalent", "Auchan", "Temps plein / 6 mois/ Nice "));
-        offersList.add(new OfferModelClass(R.drawable.logo, "Manager", "Action", "Temps plein / 6 mois/ Nice "));
+        // Perform database operations in the background
+        executorService.execute(() -> {
+            AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
+            jobOffers = db.jobOfferDAO().gellAllJobOffer();
 
-        // Adapter
-        adapter = new CustomAdapter(getContext(), offersList);
-        RecyclerView.LayoutManager layoutManager = new
-                LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+            // Update the UI on the main thread
+            getActivity().runOnUiThread(() -> {
+                // Initialize the adapter
+                adapter = new JobOfferAdapter(getContext(), jobOffers);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
+            });
+        });
 
         return view;
     }
