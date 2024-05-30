@@ -21,7 +21,7 @@ public class fragment_navbar_user extends AppCompatActivity {
         // Pour afficher le premier fragment par défaut
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.bodyApp,
-                    new OffersFragment()).commit();
+                    new Offers2Fragment()).commit();
         }
     }
 
@@ -30,7 +30,7 @@ public class fragment_navbar_user extends AppCompatActivity {
                 Fragment selectedFragment = null;
 
                 if (item.getItemId() == R.id.navHome) {
-                    selectedFragment = new OffersFragment();
+                    selectedFragment = new Offers2Fragment();
                 } else if (item.getItemId() == R.id.navSearch) {
                     selectedFragment = new searchFragment();
                 } else if (item.getItemId() == R.id.navFavorite) {

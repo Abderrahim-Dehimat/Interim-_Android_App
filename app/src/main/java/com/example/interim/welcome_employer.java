@@ -37,5 +37,22 @@ public class welcome_employer extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        gererOffre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EmployerGererOffresActivity.class);
+                startActivity(i);
+            }
+        });
+
+        gererCandidature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), CandidaturesAcceptesActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 }

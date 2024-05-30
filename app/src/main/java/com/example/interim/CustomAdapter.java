@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,7 +58,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             offerNameTxt = itemView.findViewById(R.id.offer_name_txt);
             companyNameTxt = itemView.findViewById(R.id.comapny_name_txt);
             offerInfosTxt = itemView.findViewById(R.id.offer_infos_txt);
-            applyBtn = itemView.findViewById(R.id.apply_button);
+            applyBtn = itemView.findViewById(R.id.consulter_button);
 
         }
     }

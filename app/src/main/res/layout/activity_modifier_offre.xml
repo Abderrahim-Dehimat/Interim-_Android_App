@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/button_color"
+    android:isScrollContainer="true"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ModifierOffreActivity">
+
+        <TextView
+            android:id="@+id/first_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="179dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="174dp"
+            android:text="Modifer l'offre"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/main" />
+
+        <ImageView
+            android:id="@+id/back_image_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="105dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bottom2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutIndustrie"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Industrie"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/back_image_view">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/industrie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/industry_worker"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/button_color"
+                android:inputType="text"
+                android:padding="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutNomEntreprise"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Nom de l'entreprise"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/layoutIndustrie">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nomeEntreprise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/enterprise"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/button_color"
+                android:inputType="text"
+                android:padding="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_IntitulePoste"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Intutulé du poste"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/layoutNomEntreprise">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/intitule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/worker"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/button_color"
+                android:inputType="text"
+                android:padding="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutZone"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Zone géographique"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/layout_IntitulePoste">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Zone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_language_24"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/button_color"
+                android:inputType="text"
+                android:padding="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_url"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Type de contrat"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/layoutZone">
+
+            <Spinner
+                android:id="@+id/spinner_type_contrat"
+                android:background="@drawable/contour_bleu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutperiode"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Période"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/layout_url">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/periode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/business_time_svgrepo_com"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/button_color"
+                android:inputType="text"
+                android:padding="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutRenumeration"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Rénumération"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/layoutperiode">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Renumeration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/euro_currency_in_an_attache_case_svgrepo_com"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/button_color"
+                android:inputType="text"
+                android:padding="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutDescription"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Description de l'offre"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/layoutRenumeration">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/description_svgrepo_com"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/button_color"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:padding="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/deposer_button_employeur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="60dp"
+            android:padding="10dp"
+            android:backgroundTint="@color/button_color"
+            android:fontFamily="@font/dm_medium"
+            android:text="Modifier"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDescription" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

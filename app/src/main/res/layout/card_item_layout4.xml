@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="Offer Name"
+            android:layout_marginEnd="24dp"
+            android:text="Nom Prenom"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -31,50 +32,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="company name"
+            android:text="Date du candidature"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/offer_name_txt"
             app:layout_constraintTop_toBottomOf="@+id/offer_name_txt" />
 
-        <TextView
-            android:textStyle="bold"
-            android:id="@+id/offer_infos_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Offer infos"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/comapny_name_txt"
-            app:layout_constraintTop_toBottomOf="@+id/comapny_name_txt" />
 
         <Button
             android:id="@+id/consulter_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/button_color"
-            android:text="postuler"
+            android:text="Consulter"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/offer_infos_txt"
-            app:layout_constraintTop_toBottomOf="@+id/offer_infos_txt" />
+            app:layout_constraintStart_toStartOf="@+id/comapny_name_txt"
+            app:layout_constraintTop_toBottomOf="@+id/comapny_name_txt" />
 
         <Button
             android:id="@+id/modifier_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:textSize="15sp"
+            android:layout_marginStart="90dp"
             android:backgroundTint="@color/button_color"
-            android:text="Détails"
+            android:text="Contacter"
+            android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/consulter_button"
             app:layout_constraintTop_toTopOf="@+id/consulter_button" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

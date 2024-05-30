@@ -74,8 +74,8 @@ public class JobOfferAdapter extends RecyclerView.Adapter<JobOfferAdapter.ViewHo
             offerNameTxt = itemView.findViewById(R.id.offer_name_txt);
             companyNameTxt = itemView.findViewById(R.id.comapny_name_txt);
             offerInfosTxt = itemView.findViewById(R.id.offer_infos_txt);
-            applyBtn = itemView.findViewById(R.id.apply_button);
-            detailsBtn = itemView.findViewById(R.id.details_button);
+            applyBtn = itemView.findViewById(R.id.consulter_button);
+            detailsBtn = itemView.findViewById(R.id.modifier_button);
         }
     }
 }

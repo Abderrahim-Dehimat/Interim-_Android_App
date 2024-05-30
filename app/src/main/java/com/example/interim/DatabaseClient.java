@@ -53,6 +53,9 @@ public class DatabaseClient {
                     database.jobOfferDAO().addJobOffer(new JobOffer(1, "Grande distribution", "Aldi", "Agent polyvalent", "Toulouse", "CDD", "2 mois", 1300, "on propose un poste de preparateur de commande pour l'entreprise Aldi"));
                     database.jobOfferDAO().addJobOffer(new JobOffer(1, "Logistiquen", "DH interim", "Preparateur de commandes", "Paris", "CDD", "2 mois", 1300, "on propose un poste de preparateur de commande pour l'entreprise Aldi"));
                     database.jobOfferDAO().addJobOffer(new JobOffer(1, "Logistiquenn", "AB interim", "Inventorist", "Montpellier", "CDD", "2 mois", 1300, "on propose un poste de preparateur de commande pour l'entreprise Aldi"));
+                    // adding applications
+                    database.applicationDAO().addApplication(new Application(1, 1, "30/05/2024", "pending", "Dehimat", "Abderrahim", "peinding"));
+                    database.applicationDAO().addApplication(new Application(2, 1, "30/05/2024", "accepted", "Dehimat", "Abderrahim", "peinding"));
                 });
             }
         };

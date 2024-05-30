@@ -37,6 +37,8 @@ public interface ApplicationDAO {
     // Candidatures en cours acceptées
     @Query("select o.id_offre, o.id_employeur, o.nom_industrie, o.nom_employeur, o.intitule_offre, o.ville_offre, o.type_contrat, o.periode_offre, o.remuneration_offre, o.description_offre from offre o join candidature c on o.id_offre = c.id_offre where c.id_utilisateur = :userId and c.statut_candidature = 'accepted' ")
     public List<JobOffer> getAllAcceptedJobOffer(int userId);
+    @Query("UPDATE candidature SET statut_candidature = :status WHERE id_candidature = :idCandidature")
+    void updateStatus(int idCandidature, String status);
 
 
 }

@@ -20,6 +20,21 @@
             android:name=".postule_User_Activity"
             android:exported="false" />
         <activity
+            android:name=".CandidaturesAcceptesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CansulterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConsulterCandidaturesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModifierOffreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmployerGererOffresActivity"
+            android:exported="false" />
+        <activity
             android:name=".depo_offre"
             android:exported="false" />
         <activity
