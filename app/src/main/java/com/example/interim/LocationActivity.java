@@ -2,7 +2,6 @@ package com.example.interim;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,10 +18,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,8 +32,6 @@ public class LocationActivity extends AppCompatActivity {
     ImageView appLogo2;
     TextView locationTxt, locationTxt2;
     Button acceptBtn, refuseBtn;
-
-    // Variables used for the permission (I imported 2 packages + the permission package)
     private FusedLocationProviderClient fusedLocationProviderClient;
     private ActivityResultLauncher<String> requestPermissionLauncher;
 
@@ -48,17 +41,14 @@ public class LocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location);
         EdgeToEdge.enable(this);
 
-        // Declaring the views
         appLogo2 = findViewById(R.id.app_logo2);
         locationTxt = findViewById(R.id.location_txt);
         locationTxt2 = findViewById(R.id.location_txt2);
         acceptBtn = findViewById(R.id.accept_button);
         refuseBtn = findViewById(R.id.refuse_button);
 
-        // Adding functionalities
         appLogo2.setImageResource(R.drawable.logo);
 
-        // Location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         requestPermissionLauncher = registerForActivityResult(
@@ -72,24 +62,25 @@ public class LocationActivity extends AppCompatActivity {
                 }
         );
 
-        // the accept button
         acceptBtn.setOnClickListener(v -> {
-            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+            } else {
+                getAndShowCity();
+            }
+        });
+
+        refuseBtn.setOnClickListener(v -> {
+            Toast.makeText(this, "Location access refused", Toast.LENGTH_SHORT).show();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main, new OffersFragment());
+            transaction.replace(R.id.main, new Offers2Fragment());
             transaction.addToBackStack(null); // Optional: Add to backstack for navigation
             transaction.commit();
         });
-
-        // The refuse button
-        refuseBtn.setOnClickListener(v -> {
-            Toast.makeText(this, "Location access refused", Toast.LENGTH_SHORT).show();
-        });
     }
 
-    // the method that displays the city as a toast
     void getAndShowCity() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         fusedLocationProviderClient.getLastLocation()
@@ -98,6 +89,10 @@ public class LocationActivity extends AppCompatActivity {
                         String city = getCityFromLocation(this, location);
                         if (city != null) {
                             Toast.makeText(this, "City: " + city, Toast.LENGTH_SHORT).show();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.main, OffersFragment.newInstance(city));
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                         } else {
                             Toast.makeText(this, "City information not available", Toast.LENGTH_SHORT).show();
                         }
@@ -110,14 +105,13 @@ public class LocationActivity extends AppCompatActivity {
                 });
     }
 
-    // a method that extracts the name of the city out of the GPS location
     private String getCityFromLocation(Context context, Location location) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (!addresses.isEmpty()) {
                 Address address = addresses.get(0);
-                return address.getLocality(); // This is the city name
+                return address.getLocality();
             }
         } catch (IOException e) {
             e.printStackTrace();

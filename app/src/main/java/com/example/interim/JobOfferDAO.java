@@ -17,6 +17,9 @@ public interface JobOfferDAO {
     public void updateJobOffer(JobOffer jobOffer);
     @Delete
     public void deleteJobOffer(JobOffer jobOffer);
+
+    @Query("DELETE FROM offre WHERE id_offre = :offerId")
+    void deleteOfferById(int offerId);
     @Query("select * from offre")
     public List<JobOffer> gellAllJobOffer();
     @Query("select * from offre where id_offre = :jobOfferId")
