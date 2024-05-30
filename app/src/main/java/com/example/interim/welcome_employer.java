@@ -23,6 +23,7 @@ public class welcome_employer extends AppCompatActivity {
         deposerOffre=findViewById(R.id.first_button);
         gererOffre=findViewById(R.id.second_button);
         gererCandidature=findViewById(R.id.third_button);
+
         
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

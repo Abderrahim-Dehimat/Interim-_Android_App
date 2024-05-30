@@ -16,6 +16,7 @@ public class LoginActivityEmployeur extends AppCompatActivity {
     ImageView logo3;
     EditText emailLogInEmp, passwordLogInEmp;
     Button logInBtnEmployeur, registerBtnEmployeur;
+    public static int idEmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,7 @@ public class LoginActivityEmployeur extends AppCompatActivity {
                 if (employer != null) {
                     Toast.makeText(getApplicationContext(), "Connexion réussie", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), welcome_employer.class);
+                    idEmp = employer.idEmployeur;
                     startActivity(i);
                 } else {
                     Toast.makeText(getApplicationContext(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show();

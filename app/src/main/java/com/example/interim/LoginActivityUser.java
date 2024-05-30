@@ -63,6 +63,10 @@ public class LoginActivityUser extends AppCompatActivity {
             runOnUiThread(() -> {
                 if (user != null) {
                     Toast.makeText(getApplicationContext(), "Connexion réussie", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), fragment_navbar_user.class);
+                    startActivity(i);
+
+
 //                    Intent intent = new Intent(getApplicationContext(), OffersFragment); // Redirect to your home activity
 //                    startActivity(intent);
                 } else {

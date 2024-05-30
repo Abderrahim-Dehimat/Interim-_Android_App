@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/button_color"
+    tools:context=".searchFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/Main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/first_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="179dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="174dp"
+            android:text="Effectuer une recherche"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/Main" />
+        <ImageView
+            android:id="@+id/back_image_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="105dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bottom2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layaoutindustrie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:hint="industrie"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusTopStart="18dp"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:hintTextColor="@color/black"
+            app:boxStrokeColor="@color/button_color"
+            app:layout_constraintTop_toTopOf="@id/back_image_view">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/industrie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTint="@color/button_color"
+                android:drawablePadding="20dp"
+                android:padding="15dp"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layaoutintitule_du_poste"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:hint="intitule du poste"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusTopStart="18dp"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:hintTextColor="@color/black"
+            app:boxStrokeColor="@color/button_color"
+            app:layout_constraintTop_toTopOf="@id/layaoutindustrie">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/intitule_du_poste"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTint="@color/button_color"
+                android:drawablePadding="20dp"
+                android:padding="15dp"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layaoutzone_geo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:hint="zone géographique"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusTopStart="18dp"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:hintTextColor="@color/black"
+            app:boxStrokeColor="@color/button_color"
+            app:layout_constraintTop_toTopOf="@id/layaoutintitule_du_poste">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/zone_geo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTint="@color/button_color"
+                android:drawablePadding="20dp"
+                android:padding="15dp"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layaouttype_contrat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:hint="type de contrat"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusTopStart="18dp"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:hintTextColor="@color/black"
+            app:boxStrokeColor="@color/button_color"
+            app:layout_constraintTop_toTopOf="@id/layaoutzone_geo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/type_contrat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTint="@color/button_color"
+                android:drawablePadding="20dp"
+                android:padding="15dp"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layaoutperiode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:hint="periode"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusTopStart="18dp"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:hintTextColor="@color/black"
+            app:boxStrokeColor="@color/button_color"
+            app:layout_constraintTop_toTopOf="@id/layaouttype_contrat">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/periode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTint="@color/button_color"
+                android:drawablePadding="20dp"
+                android:padding="15dp"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="60dp"
+            android:padding="10dp"
+            android:backgroundTint="@color/button_color"
+            android:fontFamily="@font/dm_medium"
+            android:text="Rechercher"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layaoutperiode" />
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
