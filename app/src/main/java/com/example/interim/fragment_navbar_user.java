@@ -36,7 +36,7 @@ public class fragment_navbar_user extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.navFavorite) {
                     selectedFragment = new FavoriteFragment();
                 } else if (item.getItemId() == R.id.navProfile) {
-                    selectedFragment = new ProfileFragment();
+                    selectedFragment = new ProfilFragment();
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.bodyApp,
