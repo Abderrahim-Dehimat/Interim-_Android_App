@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Interim"
         tools:targetApi="31">
         <activity
+            android:name=".CandidaturesEnCoursUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".postule_User_Activity"
             android:exported="false" />
         <activity

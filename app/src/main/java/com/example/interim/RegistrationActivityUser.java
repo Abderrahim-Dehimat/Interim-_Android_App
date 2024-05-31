@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -29,17 +31,14 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class RegistrationActivityUser extends AppCompatActivity {
-
     EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUtilisateur, emailUtilisateur, motDePasseUtilisateur;
     Button registerButton;
 
-
-    private Uri pdfUri;
-
     private Calendar calendar;
     private TextInputEditText birthdate;
-    private Uri cvUri;
-    private Uri letterUri;
+
+    private String cvBase64;
+    private String letterBase64;
 
     private final ActivityResultLauncher<Intent> cvPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -63,10 +62,9 @@ public class RegistrationActivityUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_registration_user);
 
-        // declaring the views
+        // Initialisation des vues
         nomUtilisateur = findViewById(R.id.nom_utilisateur_edit_text);
         prenomUtilisateur = findViewById(R.id.prenom_utilisateur_edit_text);
         villeUtilisateur = findViewById(R.id.Ville_utilisateurEditText);
@@ -83,61 +81,48 @@ public class RegistrationActivityUser extends AppCompatActivity {
 
         selectCvButton.setOnClickListener(v -> openFilePicker(PICK_CV_REQUEST));
         selectPdfButton.setOnClickListener(v -> openFilePicker(PICK_LETTER_REQUEST));
-        final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, monthOfYear);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateDateEditText();
-            }
+
+        final DatePickerDialog.OnDateSetListener dateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateDateEditText();
         };
 
-        birthdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                Calendar maxDate = (Calendar) calendar.clone();
-                maxDate.set(Calendar.YEAR, year - 18);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(RegistrationActivityUser.this, dateSetListener, year - 18, month, day);
-                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
-                datePickerDialog.show();
-            }
+        birthdate.setOnClickListener(v -> {
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            Calendar maxDate = (Calendar) calendar.clone();
+            maxDate.set(Calendar.YEAR, year - 18);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(RegistrationActivityUser.this, dateSetListener, year - 18, month, day);
+            datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+            datePickerDialog.show();
         });
-        //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-         //   Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-          //  v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-          //  return insets;
-        //});
 
-        // saving the user inside the database
         AppDatabase db = DatabaseClient.getInstance(getApplicationContext()).getAppDatabase();
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateInputs()) {
-                    // Insert a new user
-                    User newUser = new User();
-                    newUser.nom = nomUtilisateur.getText().toString();
-                    newUser.prenom = prenomUtilisateur.getText().toString();
-                    newUser.dateDeNaissance = birthdate.getText().toString();
-                    newUser.ville = villeUtilisateur.getText().toString();
-                    newUser.numeroTelephone = numeroTelephoneUtilisateur.getText().toString();
-                    newUser.emailUtilisateur = emailUtilisateur.getText().toString();
-                    newUser.motDePasse = motDePasseUtilisateur.getText().toString();
-                    new Thread(() -> {
-                        db.userDAO().addUser(newUser);
-                    }).start();
-                    Toast.makeText(getApplicationContext(), "Création du compte avec succès", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), LoginActivityUser.class);
-                    startActivity(i);
-                }
+        registerButton.setOnClickListener(v -> {
+            if (validateInputs()) {
+                // Insert a new user
+                User newUser = new User(
+                        nomUtilisateur.getText().toString(),
+                        prenomUtilisateur.getText().toString(),
+                        birthdate.getText().toString(),
+                        villeUtilisateur.getText().toString(),
+                        numeroTelephoneUtilisateur.getText().toString(),
+                        emailUtilisateur.getText().toString(),
+                        motDePasseUtilisateur.getText().toString(),
+                        cvBase64,
+                        letterBase64
+                );
+                new Thread(() -> db.userDAO().addUser(newUser)).start();
+                Toast.makeText(getApplicationContext(), "Création du compte avec succès", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), LoginActivityUser.class);
+                startActivity(i);
             }
         });
-
     }
+
     private void updateDateEditText() {
         String dateFormat = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());
@@ -145,15 +130,19 @@ public class RegistrationActivityUser extends AppCompatActivity {
     }
 
     private boolean validateInputs() {
-        if (nomUtilisateur.getText().toString().isEmpty() || prenomUtilisateur.getText().toString().isEmpty() ||
-                villeUtilisateur.getText().toString().isEmpty() || numeroTelephoneUtilisateur.getText().toString().isEmpty() ||
-                emailUtilisateur.getText().toString().isEmpty() || motDePasseUtilisateur.getText().toString().isEmpty() ||
+        if (nomUtilisateur.getText().toString().isEmpty() ||
+                prenomUtilisateur.getText().toString().isEmpty() ||
+                villeUtilisateur.getText().toString().isEmpty() ||
+                numeroTelephoneUtilisateur.getText().toString().isEmpty() ||
+                emailUtilisateur.getText().toString().isEmpty() ||
+                motDePasseUtilisateur.getText().toString().isEmpty() ||
                 birthdate.getText().toString().isEmpty()) {
             Toast.makeText(this, "Tous les champs doivent être remplis", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
+
     private void openFilePicker(int requestCode) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("application/pdf");
@@ -164,18 +153,19 @@ public class RegistrationActivityUser extends AppCompatActivity {
             letterPickerLauncher.launch(intent);
         }
     }
+
     private void handleFileSelection(Intent data, int requestCode) {
         Uri uri = data.getData();
         if (uri != null) {
             String fileName = getFileName(uri);
-            File pdfFile = savePdfToLocalStorage(uri, fileName);
-            if (pdfFile != null) {
+            String base64String = convertPdfToBase64(uri);
+            if (base64String != null) {
                 if (requestCode == PICK_CV_REQUEST) {
-                    cvUri = uri;
-                    Toast.makeText(this, "CV Selected: " + fileName, Toast.LENGTH_SHORT).show();
+                    cvBase64 = base64String;
+                    Toast.makeText(this, "CV sélectionné : " + fileName, Toast.LENGTH_SHORT).show();
                 } else if (requestCode == PICK_LETTER_REQUEST) {
-                    letterUri = uri;
-                    Toast.makeText(this, "Letter Selected: " + fileName, Toast.LENGTH_SHORT).show();
+                    letterBase64 = base64String;
+                    Toast.makeText(this, "Lettre sélectionnée : " + fileName, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -201,19 +191,19 @@ public class RegistrationActivityUser extends AppCompatActivity {
         return result;
     }
 
-    private File savePdfToLocalStorage(Uri uri, String fileName) {
-        File file = new File(getFilesDir(), fileName);
-        try (InputStream inputStream = getContentResolver().openInputStream(uri);
-             FileOutputStream outputStream = new FileOutputStream(file)) {
+    private String convertPdfToBase64(Uri uri) {
+        try (InputStream inputStream = getContentResolver().openInputStream(uri)) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
-            return file;
+            byte[] pdfBytes = outputStream.toByteArray();
+            return Base64.encodeToString(pdfBytes, Base64.DEFAULT);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Failed to save PDF", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Échec de la conversion du PDF", Toast.LENGTH_SHORT).show();
             return null;
         }
     }

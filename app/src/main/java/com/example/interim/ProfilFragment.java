@@ -3,12 +3,19 @@ package com.example.interim;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +25,7 @@ import android.widget.TextView;
 public class ProfilFragment extends Fragment {
     TextView nom_text_view,prenom_text_view;
     Button first_button,second_button,third_button;
+    private ExecutorService executorService;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -56,6 +64,7 @@ public class ProfilFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     @Override
@@ -68,6 +77,43 @@ public class ProfilFragment extends Fragment {
         first_button=view.findViewById(R.id.first_button);
         second_button=view.findViewById(R.id.second_button);
         third_button=view.findViewById(R.id.third_button);
+
+        first_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an instance of ModifierInfosFragment
+                ModifierInfosFragment modifierInfosFragment = new ModifierInfosFragment();
+
+                // Create a FragmentManager
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+
+                // Begin a FragmentTransaction
+                FragmentTransaction transaction = manager.beginTransaction();
+
+                // Replace the current fragment with ModifierInfosFragment
+                transaction.replace(R.id.fragment_profile, modifierInfosFragment);
+
+                // Add the transaction to the back stack
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+            }
+        });
+
+
+        // database
+        executorService.execute(() -> {
+            AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
+            User user = db.userDAO().getUserById(LoginActivityUser.idUtilisateur);
+
+            // Update the UI on the main thread
+            getActivity().runOnUiThread(() -> {
+                nom_text_view.setText(user.nom);
+                prenom_text_view.setText(user.prenom);
+            });
+        });
+
         return view;
     }
 }

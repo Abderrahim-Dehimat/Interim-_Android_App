@@ -20,6 +20,7 @@ public class LoginActivityUser extends AppCompatActivity {
     ImageView appLogo;
     EditText emailUtilisateur, motDePasseUtilisateur;
     Button logInButton, RegisterButton;
+    public static int idUtilisateur;
 
 
     @Override
@@ -63,12 +64,9 @@ public class LoginActivityUser extends AppCompatActivity {
             runOnUiThread(() -> {
                 if (user != null) {
                     Toast.makeText(getApplicationContext(), "Connexion réussie", Toast.LENGTH_SHORT).show();
+                    idUtilisateur = user.idUtilisateur;
                     Intent i = new Intent(getApplicationContext(), fragment_navbar_user.class);
                     startActivity(i);
-
-
-//                    Intent intent = new Intent(getApplicationContext(), OffersFragment); // Redirect to your home activity
-//                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
                 }

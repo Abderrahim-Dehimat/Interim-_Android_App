@@ -7,27 +7,29 @@
     android:background="@color/button_color"
     android:isScrollContainer="true"
     android:fillViewport="true">
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".postule_User_Activity">
+
         <TextView
             android:id="@+id/first_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="179dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="174dp"
             android:text="Postuler pour un offre"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/Main" />
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/back_image_view"
             android:layout_width="0dp"
@@ -39,214 +41,235 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/bottom2" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutName"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
             android:hint="Nom"
+            app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
-            app:boxCornerRadiusBottomEnd="8dp"
-            app:hintTextColor="@color/black"
             app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
             app:layout_constraintTop_toTopOf="@id/back_image_view">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nom_utilisateur_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableTint="@color/button_color"
+                android:drawableStart="@drawable/baseline_co_present_24"
                 android:drawablePadding="20dp"
-                android:padding="15dp"
+                android:drawableTint="@color/button_color"
                 android:inputType="text"
-                android:drawableStart="@drawable/baseline_co_present_24" />
+                android:padding="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutPrenom"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:hint="Prénom"
+            app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
-            app:boxCornerRadiusBottomEnd="8dp"
-            app:hintTextColor="@color/black"
             app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutName">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/prenom_utilisateur_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableTint="@color/button_color"
+                android:drawableStart="@drawable/baseline_co_present_24"
                 android:drawablePadding="20dp"
-                android:padding="15dp"
+                android:drawableTint="@color/button_color"
                 android:inputType="text"
-                android:drawableStart="@drawable/baseline_co_present_24" />
+                android:padding="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_telephone_emp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:hint="Date de naissance"
+            app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
-            app:boxCornerRadiusBottomEnd="8dp"
-            app:hintTextColor="@color/black"
             app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutPrenom">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dateEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:cursorVisible="false"
+                android:drawableStart="@drawable/baseline_cake_24"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/button_color"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:inputType="date"
-                android:drawableTint="@color/button_color"
-                android:drawablePadding="20dp"
-                android:padding="15dp"
-                android:drawableStart="@drawable/baseline_cake_24" />
+                android:padding="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutVille"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:hint="Ville"
+            app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
-            app:boxCornerRadiusBottomEnd="8dp"
-            app:hintTextColor="@color/black"
             app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_telephone_emp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Ville_utilisateurEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableTint="@color/button_color"
+                android:drawableStart="@drawable/baseline_language_24"
                 android:drawablePadding="20dp"
-                android:padding="15dp"
+                android:drawableTint="@color/button_color"
                 android:inputType="text"
-                android:drawableStart="@drawable/baseline_language_24" />
+                android:padding="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTelephone"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:hint="Numéro Téléphone"
+            app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
-            app:boxCornerRadiusBottomEnd="8dp"
-            app:hintTextColor="@color/black"
             app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/layoutVille">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/telephone_utilisateur_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableTint="@color/button_color"
+                android:drawableStart="@drawable/cell_phone"
                 android:drawablePadding="20dp"
-                android:padding="15dp"
+                android:drawableTint="@color/button_color"
                 android:inputType="text"
-                android:drawableStart="@drawable/cell_phone" />
+                android:padding="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutEmail"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:hint="Email"
+            app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
-            app:boxCornerRadiusBottomEnd="8dp"
-            app:hintTextColor="@color/black"
             app:boxStrokeColor="@color/button_color"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutTelephone">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_utilisateurET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableTint="@color/button_color"
+                android:drawableStart="@drawable/baseline_mail_24"
                 android:drawablePadding="20dp"
-                android:padding="15dp"
+                android:drawableTint="@color/button_color"
                 android:inputType="text"
-                android:drawableStart="@drawable/baseline_mail_24" />
+                android:padding="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/select_cv_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:text="CV (PDF)"
-            android:backgroundTint="@color/blou"
+            android:layout_marginEnd="24dp"
 
+            android:backgroundTint="@color/blou"
+            android:text="CV (PDF)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutEmail" />
+
         <Button
             android:id="@+id/select_pdf_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:text="lettre de motivation (PDF)"
-            android:backgroundTint="@color/blou"
-            app:layout_constraintTop_toBottomOf="@id/select_cv_button"
+            android:layout_marginEnd="24dp"
 
-            />
+            android:backgroundTint="@color/blou"
+            android:text="lettre de motivation (PDF)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select_cv_button" />
         <!--android:backgroundTint="@color/app_color"
             android:textColor="@color/button_color"-->
         <Button
             android:id="@+id/register_button_utilisateur"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="60dp"
-            android:layout_marginRight="60dp"
             android:layout_marginLeft="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="60dp"
             android:backgroundTint="@color/button_color"
-            android:text="Postuler"
+            android:fontFamily="@font/dm_medium"
             android:padding="10dp"
+            android:text="Postuler"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/dm_medium"
-            android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/select_pdf_button">
-        </Button>
-
-
+            app:layout_constraintTop_toBottomOf="@id/select_pdf_button"></Button>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

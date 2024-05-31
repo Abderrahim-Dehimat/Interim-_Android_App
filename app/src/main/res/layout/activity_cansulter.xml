@@ -224,6 +224,13 @@
             />
         <!--android:backgroundTint="@color/app_color"
             android:textColor="@color/button_color"-->
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/select_pdf_button"
+            android:layout_marginTop="16dp" />
+
         <Button
             android:id="@+id/register_button_utilisateur"
             android:layout_width="match_parent"

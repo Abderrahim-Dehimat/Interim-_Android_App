@@ -8,10 +8,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -45,6 +45,8 @@ public class CansulterActivity extends AppCompatActivity {
     private TextInputEditText birthdate;
     private Uri cvUri;
     private Uri letterUri;
+
+    private WebView webView;
 
     private final ActivityResultLauncher<Intent> cvPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -89,6 +91,7 @@ public class CansulterActivity extends AppCompatActivity {
         numeroTelephoneUtilisateur = findViewById(R.id.telephone_utilisateur_edit_text);
         emailUtilisateur = findViewById(R.id.email_utilisateurET);
         retourBtn = findViewById(R.id.register_button_utilisateur);
+        webView = findViewById(R.id.webView);
 
         birthdate = findViewById(R.id.dateEditText);
         calendar = Calendar.getInstance();
@@ -152,8 +155,8 @@ public class CansulterActivity extends AppCompatActivity {
                     villeUtilisateur.setText(user.ville);
                     numeroTelephoneUtilisateur.setText(user.numeroTelephone);
                     emailUtilisateur.setText(String.valueOf(user.emailUtilisateur));
-                    selectCvButton.setOnClickListener(v -> openFilePicker(PICK_CV_REQUEST));
-                    selectPdfButton.setOnClickListener(v -> openFilePicker(PICK_LETTER_REQUEST));
+                    selectCvButton.setOnClickListener(v -> displayPdfInWebView(user.cvUtilisateurBase64));
+                    selectPdfButton.setOnClickListener(v -> displayPdfInWebView(user.lettreMotivationBase64));
                 }
             });
         });
@@ -192,9 +195,11 @@ public class CansulterActivity extends AppCompatActivity {
             if (pdfFile != null) {
                 if (requestCode == PICK_CV_REQUEST) {
                     cvUri = uri;
+                    displayPdfInWebView(pdfFile.getAbsolutePath());
                     Toast.makeText(this, "CV Selected: " + fileName, Toast.LENGTH_SHORT).show();
                 } else if (requestCode == PICK_LETTER_REQUEST) {
                     letterUri = uri;
+                    displayPdfInWebView(pdfFile.getAbsolutePath());
                     Toast.makeText(this, "Letter Selected: " + fileName, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -233,10 +238,14 @@ public class CansulterActivity extends AppCompatActivity {
             return file;
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Failed to save PDF", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Failed to save file", Toast.LENGTH_SHORT).show();
             return null;
         }
     }
 
-
+    @SuppressLint("SetJavaScriptEnabled")
+    private void displayPdfInWebView(String base64EncodedPdf) {
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("data:application/pdf;base64," + base64EncodedPdf);
+    }
 }

@@ -53,6 +53,7 @@ public class ConsulterCandidaturesAdapter extends RecyclerView.Adapter<Consulter
         holder.consulterBtn.setOnClickListener(v -> {
             Intent i = new Intent(v.getContext(), CansulterActivity.class);
             i.putExtra("idUtilisateur", model.idUtilisateur);
+            i.putExtra("idOffre", model.idOffre);
             ((AppCompatActivity) context).startActivity(i);
         });
 

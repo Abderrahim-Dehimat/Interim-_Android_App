@@ -1,5 +1,4 @@
 package com.example.interim;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -31,30 +30,17 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class postule_User_Activity extends AppCompatActivity {
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
-//        setContentView(R.layout.activity_postule_user);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
-//    }
-EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUtilisateur, emailUtilisateur;
+    EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUtilisateur, emailUtilisateur;
     Button registerButton;
-
-
     private Uri pdfUri;
-
     private Calendar calendar;
     private TextInputEditText birthdate;
-    private Uri cvUri;
-    private Uri letterUri;
+    private Uri cvUri, letterUri;
+    private ExecutorService executorService; // Executor for background tasks
 
     private final ActivityResultLauncher<Intent> cvPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -81,14 +67,15 @@ EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUti
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_postule_user);
 
-        // declaring the views
+        executorService = Executors.newSingleThreadExecutor(); // Initialize the ExecutorService
+
+        // Initialize views
         nomUtilisateur = findViewById(R.id.nom_utilisateur_edit_text);
         prenomUtilisateur = findViewById(R.id.prenom_utilisateur_edit_text);
         villeUtilisateur = findViewById(R.id.Ville_utilisateurEditText);
         numeroTelephoneUtilisateur = findViewById(R.id.telephone_utilisateur_edit_text);
         emailUtilisateur = findViewById(R.id.email_utilisateurET);
         registerButton = findViewById(R.id.register_button_utilisateur);
-
         birthdate = findViewById(R.id.dateEditText);
         calendar = Calendar.getInstance();
 
@@ -97,64 +84,65 @@ EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUti
 
         selectCvButton.setOnClickListener(v -> openFilePicker(PICK_CV_REQUEST));
         selectPdfButton.setOnClickListener(v -> openFilePicker(PICK_LETTER_REQUEST));
-        final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, monthOfYear);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateDateEditText();
-            }
+
+        final DatePickerDialog.OnDateSetListener dateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateDateEditText();
         };
 
-        birthdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                Calendar maxDate = (Calendar) calendar.clone();
-                maxDate.set(Calendar.YEAR, year - 18);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(postule_User_Activity.this, dateSetListener, year - 18, month, day);
-                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
-                datePickerDialog.show();
-            }
-        });
-        //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-        //   Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-        //  v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-        //  return insets;
-        //});
-
-        // saving the user inside the database
-        AppDatabase db = DatabaseClient.getInstance(getApplicationContext()).getAppDatabase();
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateInputs()) {
-                    // Insert a new user
-                    Application app = new Application();
-                    app.idOffre=1;
-                    app.idUtilisateur=1;
-                    app.nomCandidat = nomUtilisateur.getText().toString();
-                    app.prenomCandidat = prenomUtilisateur.getText().toString();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        app.dateCandidature = String.valueOf(LocalDate.now());
-                    }
-                    app.statut="pending";
-                    app.reponseCandidat="pending";
-
-                    new Thread(() -> {
-                        db.applicationDAO().addApplication(app);
-                    }).start();
-                    Toast.makeText(getApplicationContext(), "condidature avec succès", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), fragment_navbar_user.class);
-                    startActivity(i);
-                }
-            }
+        birthdate.setOnClickListener(v -> {
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            Calendar maxDate = (Calendar) calendar.clone();
+            maxDate.set(Calendar.YEAR, year - 18);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(postule_User_Activity.this, dateSetListener, year - 18, month, day);
+            datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+            datePickerDialog.show();
         });
 
+        // Event handler for the register button
+        registerButton.setOnClickListener(v -> {
+            if (validateInputs()) {
+                submitApplication();
+            }
+        });
     }
+
+    private void submitApplication() {
+        int jobOfferId = getIntent().getIntExtra("idOffre", -1);
+        int userId = getIntent().getIntExtra("idUtilisateur", -1);
+
+        executorService.execute(() -> {
+            AppDatabase db = DatabaseClient.getInstance(getApplicationContext()).getAppDatabase();
+            User user = db.userDAO().getUserById(userId);
+            JobOffer jobOffer = db.jobOfferDAO().getJobOfferById(jobOfferId);
+
+            if (user != null && jobOffer != null) {
+                Application app = new Application();
+                app.idOffre = jobOfferId;
+                app.idUtilisateur = userId;
+                app.nomCandidat = nomUtilisateur.getText().toString();
+                app.prenomCandidat = prenomUtilisateur.getText().toString();
+                app.dateCandidature = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? LocalDate.now().toString() : "";
+                app.statut = "pending";
+                app.reponseCandidat = "pending";
+
+                db.applicationDAO().addApplication(app);
+                runOnUiThread(() -> {
+                    Toast.makeText(getApplicationContext(), "Application submitted successfully", Toast.LENGTH_SHORT).show();
+                    finish(); // Finish activity and return to previous screen
+                });
+            } else {
+                runOnUiThread(() -> {
+                    Toast.makeText(getApplicationContext(), "Invalid User or Job Offer ID", Toast.LENGTH_LONG).show();
+                });
+            }
+        });
+    }
+
     private void updateDateEditText() {
         String dateFormat = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());
@@ -164,13 +152,13 @@ EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUti
     private boolean validateInputs() {
         if (nomUtilisateur.getText().toString().isEmpty() || prenomUtilisateur.getText().toString().isEmpty() ||
                 villeUtilisateur.getText().toString().isEmpty() || numeroTelephoneUtilisateur.getText().toString().isEmpty() ||
-                emailUtilisateur.getText().toString().isEmpty()  ||
-                birthdate.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Tous les champs doivent être remplis", Toast.LENGTH_SHORT).show();
+                emailUtilisateur.getText().toString().isEmpty() || birthdate.getText().toString().isEmpty()) {
+            Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
+
     private void openFilePicker(int requestCode) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("application/pdf");
@@ -181,6 +169,7 @@ EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUti
             letterPickerLauncher.launch(intent);
         }
     }
+
     private void handleFileSelection(Intent data, int requestCode) {
         Uri uri = data.getData();
         if (uri != null) {
@@ -198,13 +187,12 @@ EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUti
         }
     }
 
-    @SuppressLint("Range")
     private String getFileName(Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
             try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    //result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                 }
             }
         }

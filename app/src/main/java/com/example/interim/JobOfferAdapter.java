@@ -43,6 +43,8 @@ public class JobOfferAdapter extends RecyclerView.Adapter<JobOfferAdapter.ViewHo
         holder.applyBtn.setOnClickListener(v -> {
             // Check if user is logged in first (this logic is up to your session management)
             Intent i=new Intent(v.getContext(),postule_User_Activity.class);
+            i.putExtra("idOffre", model.idOffre);
+            i.putExtra("idUtilisateur", LoginActivityUser.idUtilisateur);
             ((AppCompatActivity)context).startActivity(i);
         });
 

@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {User.class, Employer.class, JobOffer.class, Application.class}, version = 4)
+@Database(entities = {User.class, Employer.class, JobOffer.class, Application.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDAO userDAO();
     public abstract EmployerDAO employerDAO();
