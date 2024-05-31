@@ -3,6 +3,7 @@ package com.example.interim;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class ConsulterCandidaturesActivity extends AppCompatActivity {
     ConsulterCandidaturesAdapter consulterCandidaturesAdapter;
     private ExecutorService executorService;  // ExecutorService declaration
     private List<Application> candidatures;
+    int idOffre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,8 @@ public class ConsulterCandidaturesActivity extends AppCompatActivity {
         // Initialize the ExecutorService
         executorService = Executors.newSingleThreadExecutor();
         Intent intent = getIntent();
-        int idOffre = intent.getIntExtra("idOffre", -1);
+        idOffre = intent.getIntExtra("idOffre", -1);
+        Toast.makeText(getApplicationContext(), "id offre: "+ idOffre, Toast.LENGTH_SHORT).show();
 
         executorService.execute(() -> {
             AppDatabase db = DatabaseClient.getInstance(getApplicationContext()).getAppDatabase();
