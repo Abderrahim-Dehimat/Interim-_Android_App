@@ -1,5 +1,6 @@
 package com.example.interim;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -98,6 +99,22 @@ public class ProfilFragment extends Fragment {
 
                 // Commit the transaction
                 transaction.commit();
+            }
+        });
+
+        second_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), CandidaturesEnCoursUserActivity.class);
+                startActivity(i);
+            }
+        });
+
+        third_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), CandidatureAccepteUserActivity.class);
+                startActivity(i);
             }
         });
 

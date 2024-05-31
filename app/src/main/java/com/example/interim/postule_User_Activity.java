@@ -109,6 +109,20 @@ public class postule_User_Activity extends AppCompatActivity {
                 submitApplication();
             }
         });
+        executorService.execute(() -> {
+            AppDatabase db = DatabaseClient.getInstance(getApplicationContext()).getAppDatabase();
+            User user = db.userDAO().getUserById(LoginActivityUser.idUtilisateur);
+
+            runOnUiThread(() -> {
+                nomUtilisateur.setText(user.nom);
+                prenomUtilisateur.setText(user.prenom);
+                birthdate.setText(user.dateDeNaissance);
+                villeUtilisateur.setText(user.ville);
+                numeroTelephoneUtilisateur.setText(user.numeroTelephone);
+                emailUtilisateur.setText(user.emailUtilisateur);
+
+            });
+        });
     }
 
     private void submitApplication() {
