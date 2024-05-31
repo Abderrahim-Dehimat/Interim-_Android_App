@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         thirdBtn = findViewById(R.id.third_button);
 
         // Adding the functionalities
-        appLogo.setImageResource(R.drawable.logo);
+        appLogo.setImageResource(R.drawable.logo_ciel);
 
         firstBtn.setOnClickListener(new View.OnClickListener() {
             @Override
