@@ -47,7 +47,7 @@ public class LocationActivity extends AppCompatActivity {
         acceptBtn = findViewById(R.id.accept_button);
         refuseBtn = findViewById(R.id.refuse_button);
 
-        appLogo2.setImageResource(R.drawable.logo);
+        appLogo2.setImageResource(R.drawable.logo_ciel);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 

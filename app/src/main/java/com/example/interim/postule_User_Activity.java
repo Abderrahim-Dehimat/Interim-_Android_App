@@ -45,7 +45,7 @@ public class postule_User_Activity extends AppCompatActivity {
 //            return insets;
 //        });
 //    }
-EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUtilisateur, emailUtilisateur, motDePasseUtilisateur;
+EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUtilisateur, emailUtilisateur;
     Button registerButton;
 
 
@@ -87,7 +87,6 @@ EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUti
         villeUtilisateur = findViewById(R.id.Ville_utilisateurEditText);
         numeroTelephoneUtilisateur = findViewById(R.id.telephone_utilisateur_edit_text);
         emailUtilisateur = findViewById(R.id.email_utilisateurET);
-        motDePasseUtilisateur = findViewById(R.id.motDePasse_utilisateur);
         registerButton = findViewById(R.id.register_button_utilisateur);
 
         birthdate = findViewById(R.id.dateEditText);
@@ -165,7 +164,7 @@ EditText nomUtilisateur, prenomUtilisateur, villeUtilisateur, numeroTelephoneUti
     private boolean validateInputs() {
         if (nomUtilisateur.getText().toString().isEmpty() || prenomUtilisateur.getText().toString().isEmpty() ||
                 villeUtilisateur.getText().toString().isEmpty() || numeroTelephoneUtilisateur.getText().toString().isEmpty() ||
-                emailUtilisateur.getText().toString().isEmpty() || motDePasseUtilisateur.getText().toString().isEmpty() ||
+                emailUtilisateur.getText().toString().isEmpty()  ||
                 birthdate.getText().toString().isEmpty()) {
             Toast.makeText(this, "Tous les champs doivent être remplis", Toast.LENGTH_SHORT).show();
             return false;

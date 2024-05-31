@@ -34,7 +34,7 @@ public class LoginActivityUser extends AppCompatActivity {
         logInButton = findViewById(R.id.buttonConnexionEmp);
         RegisterButton = findViewById(R.id.RegisterButtonEmp);
         // Adding the functionalities
-        appLogo.setImageResource(R.drawable.logo);
+        appLogo.setImageResource(R.drawable.logo8);
 
 
         // Register Button
